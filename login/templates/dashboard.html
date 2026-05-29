@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Overseas Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="dash-header">
+        <h1>Student Portal</h1>
+        <a href="/logout" class="btn logout">Logout</a>
+    </div>
+
+    <form method="GET" action="/dashboard" class="search-form">
+        <select name="field" class="search-select">
+            <option value="name"       {% if field == 'name'       %}selected{% endif %}>Name</option>
+            <option value="email"      {% if field == 'email'      %}selected{% endif %}>Email</option>
+            <option value="student_id" {% if field == 'student_id' %}selected{% endif %}>Student ID</option>
+            <option value="course"     {% if field == 'course'     %}selected{% endif %}>Course</option>
+            <option value="study_level"{% if field == 'study_level'%}selected{% endif %}>Study Level</option>
+            <option value="country"    {% if field == 'country'    %}selected{% endif %}>Country</option>
+        </select>
+        <input
+            type="text"
+            name="q"
+            placeholder="Enter value to search..."
+            value="{{ query }}"
+            class="search-input"
+            autofocus
+        >
+        <button type="submit" class="btn search-btn">Search</button>
+        {% if query %}
+        <a href="/dashboard" class="btn clear-btn">Clear</a>
+        {% endif %}
+    </form>
+
+    {% if not searched %}
+    <div class="search-hint">Select a field and enter a value to look up student records.</div>
+
+    {% elif students %}
+    <table>
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Student ID</th>
+                <th>Level</th>
+                <th>Country</th>
+                <th>Course</th>
+                <th>Registered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>
+                    {% if s[7] %}
+                        <img src="{{ url_for('static', filename='uploads/' + s[7]) }}" class="student-img">
+                    {% else %}
+                        <div class="no-img">N/A</div>
+                    {% endif %}
+                </td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+                <td>{{ s[3] }}</td>
+                <td>{{ s[4] }}</td>
+                <td>{{ s[5] }}</td>
+                <td>{{ s[6] }}</td>
+                <td>{{ s[8].strftime('%d %b %Y') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="search-hint">No students found for "<strong>{{ query }}</strong>".</div>
+    {% endif %}
+</div>
+</body>
+</html>

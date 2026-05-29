@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Overseas Student Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Overseas Student Portal</h1>
+    <h2>Create Account</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="name" required placeholder="John Smith">
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required placeholder="john@university.com">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required placeholder="Min 8 characters">
+        </div>
+
+        <div class="form-group">
+            <label>Student ID</label>
+            <input type="text" name="student_id" required placeholder="STU-2024-001">
+        </div>
+
+        <div class="form-group">
+            <label>Level of Study</label>
+            <select name="study_level" required>
+                <option value="">-- Select Level --</option>
+                <option value="Bachelors">Bachelors</option>
+                <option value="Masters">Masters</option>
+                <option value="PhD">PhD</option>
+                <option value="Diploma">Diploma</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Country</label>
+            <select name="country" required>
+                <option value="">-- Select Country --</option>
+                <option>India</option>
+                <option>USA</option>
+                <option>UK</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>UAE</option>
+                <option>Singapore</option>
+                <option>New Zealand</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Course / Program</label>
+            <input type="text" name="course" required placeholder="e.g. Computer Science">
+        </div>
+
+        <div class="form-group">
+            <label>Profile Photo</label>
+            <input type="file" name="image" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <p class="link">Already registered? <a href="/login">Login here</a></p>
+    </form>
+</div>
+</body>
+</html>
