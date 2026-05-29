@@ -5,7 +5,7 @@ import os
 import db
 
 app = Flask(__name__)
-app.secret_key = 'overseas_portal_2024'
+app.secret_key = os.environ.get('SECRET_KEY', 'overseas_portal_2024')
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
